@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ 卡密兑换中心 | Anime Code</title>
+    <title>🛠️ 卡密管理系统 | Anime Admin</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -55,7 +55,7 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
@@ -69,12 +69,11 @@
         }
 
         .header h1 {
-            color: white;
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 10px;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            background: linear-gradient(45deg, #fff, #ffd700);
+            background: linear-gradient(45deg, #fff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -125,7 +124,7 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 40px 30px;
+            padding: 30px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
@@ -148,12 +147,11 @@
             left: 100%;
         }
 
-        .input-group {
-            margin-bottom: 25px;
-            position: relative;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .input-group label {
+        .form-group label {
             display: block;
             color: white;
             font-size: 1rem;
@@ -162,115 +160,201 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .input-field {
+        .form-control {
             width: 100%;
-            padding: 15px 20px;
+            padding: 12px 15px;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border-radius: 10px;
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
 
-        .input-field:focus {
+        .form-control:focus {
             outline: none;
-            border-color: #ffd700;
+            border-color: var(--accent);
             background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        .input-field::placeholder {
+        .form-control::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
 
-        .exchange-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #ff6b6b, #ffd700);
+        .btn {
+            padding: 12px 24px;
             border: none;
-            border-radius: 15px;
+            border-radius: 10px;
             color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
 
-        .exchange-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
         }
 
-        .exchange-btn:disabled {
+        .btn-success {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+
+        .btn-info {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #ff6b6b, #ffa8a8);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
 
-        .result {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 15px;
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .code-list {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
         }
 
-        .result.success {
-            background: rgba(76, 175, 80, 0.2);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            color: #4caf50;
+        .code-list::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .result.error {
-            background: rgba(244, 67, 54, 0.2);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            color: #f44336;
-        }
-
-        .result.info {
-            background: rgba(33, 150, 243, 0.2);
-            border: 1px solid rgba(33, 150, 243, 0.3);
-            color: #2196f3;
-        }
-
-        .result h3 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .result p {
-            line-height: 1.6;
-        }
-
-        .batch-result {
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .export-btn {
-            margin-top: 15px;
-            padding: 10px 15px;
+        .code-list::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: white;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 3px;
         }
 
-        .export-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .code-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .code-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .code-value {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .code-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .code-info div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-active {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .status-expired {
+            color: var(--error);
+            font-weight: bold;
+        }
+
+        .status-disabled {
+            color: #9e9e9e;
+            font-weight: bold;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .prize-content-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .prize-content-area:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .prize-content-area::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         @keyframes slideDown {
@@ -283,15 +367,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         @media (max-width: 768px) {
             .container { padding: 10px; }
-            .header h1 { font-size: 2rem; }
-            .card { padding: 30px 20px; }
+            .nav-tabs { flex-direction: column; }
+            .code-info { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -302,59 +382,83 @@
 
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-star"></i> 卡密兑换中心</h1>
-            <p>Anime Code Exchange System</p>
+            <h1><i class="fas fa-tools"></i> 卡密管理系统</h1>
+            <p>Anime Code Management System</p>
         </div>
 
         <div class="nav-tabs">
-            <div class="nav-tab active" onclick="showTab('single')">
-                <i class="fas fa-key"></i> 单卡密兑换
+            <div class="nav-tab active" onclick="showTab('generate')">
+                <i class="fas fa-plus"></i> 生成卡密
             </div>
-            <div class="nav-tab" onclick="showTab('batch')">
-                <i class="fas fa-keyboard"></i> 批量兑换
+            <div class="nav-tab" onclick="showTab('list')">
+                <i class="fas fa-list"></i> 卡密列表
             </div>
-        </div>
-
-        <!-- 单卡密兑换 -->
-        <div id="single" class="tab-content active">
-            <div class="card">
-                <h3><i class="fas fa-key"></i> 单卡密兑换</h3>
-                <form id="singleRedeemForm">
-                    <div class="input-group">
-                        <label for="code"><i class="fas fa-hashtag"></i> 输入卡密</label>
-                        <input type="text" id="code" name="code" class="input-field" placeholder="请输入您的卡密代码..." required>
-                    </div>
-                    
-                    <button type="submit" class="exchange-btn" id="submitBtn">
-                        <i class="fas fa-exchange-alt"></i> 兑换卡密
-                    </button>
-                </form>
-
-                <div id="singleResult" class="result"></div>
+            <div class="nav-tab" onclick="showTab('stats')">
+                <i class="fas fa-chart-bar"></i> 统计信息
+            </div>
+            <div class="nav-tab" onclick="showTab('export')">
+                <i class="fas fa-download"></i> 导出数据
             </div>
         </div>
 
-        <!-- 批量兑换 -->
-        <div id="batch" class="tab-content">
+        <!-- 生成卡密 -->
+        <div id="generate" class="tab-content active">
             <div class="card">
-                <h3><i class="fas fa-keyboard"></i> 批量卡密兑换</h3>
-                <form id="batchRedeemForm">
-                    <div class="input-group">
-                        <label><i class="fas fa-keyboard"></i> 输入卡密（每行一个）</label>
-                        <textarea class="input-field" name="codes" rows="8" placeholder="每行输入一个卡密代码..." required></textarea>
+                <h3><i class="fas fa-magic"></i> 批量生成卡密</h3>
+                <form id="generateForm">
+                    <div class="form-group">
+                        <label>每行一个中奖内容（行数即为生成卡密数量）</label>
+                        <textarea class="prize-content-area" name="prize_contents" rows="8" placeholder="每行输入一个中奖内容，例如：
+恭喜您获得一等奖！
+感谢参与，获得二等奖！
+获得三等奖，谢谢惠顾！
+..." required></textarea>
                     </div>
-                    
-                    <button type="submit" class="exchange-btn" id="batchSubmitBtn">
-                        <i class="fas fa-exchange-alt"></i> 批量兑换
+                    <div class="form-group">
+                        <label>最大使用次数</label>
+                        <input type="number" class="form-control" name="max_uses" value="1" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>过期时间</label>
+                        <input type="datetime-local" class="form-control" name="expire_time" required>
+                    </div>
+                    <div class="form-group">
+                        <label>描述</label>
+                        <input type="text" class="form-control" name="description" placeholder="卡密用途描述">
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-magic"></i> 生成卡密
                     </button>
                 </form>
+            </div>
+        </div>
 
-                <div id="batchResult" class="batch-result">
-                    <p style="color: rgba(255,255,255,0.6);">兑换结果将在这里显示</p>
+        <!-- 卡密列表 -->
+        <div id="list" class="tab-content">
+            <div class="card">
+                <h3><i class="fas fa-list-alt"></i> 卡密管理列表</h3>
+                <div id="codeList" class="code-list">
+                    <!-- 卡密列表将在这里动态生成 -->
                 </div>
+            </div>
+        </div>
 
-                <button class="export-btn" onclick="exportBatchResults()">
-                    <i class="fas fa-download"></i> 导出兑换结果
+        <!-- 统计信息 -->
+        <div id="stats" class="tab-content">
+            <div class="card">
+                <h3><i class="fas fa-chart-line"></i> 卡密统计概览</h3>
+                <div id="statsGrid" class="stats-grid">
+                    <!-- 统计数据将在这里显示 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 导出数据 -->
+        <div id="export" class="tab-content">
+            <div class="card">
+                <h3><i class="fas fa-file-export"></i> 数据导出</h3>
+                <button class="btn btn-info" onclick="exportCodes()">
+                    <i class="fas fa-download"></i> 导出所有卡密 (TXT)
                 </button>
             </div>
         </div>
@@ -364,16 +468,14 @@
         // 创建浮动粒子效果
         function createParticles() {
             const container = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                container.appendChild(particle);
+            for (let i = 0; i < 50; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 6 + 's';
+                p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                container.appendChild(p);
             }
         }
 
@@ -390,187 +492,307 @@
             // 显示选中的标签
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
+
+            // 如果是列表或统计页面，加载数据
+            if (tabName === 'list') {
+                loadCodeList();
+            } else if (tabName === 'stats') {
+                loadStats();
+            }
         }
 
-        // 单卡密兑换表单提交
-        document.getElementById('singleRedeemForm').addEventListener('submit', async function(e) {
+        // 生成卡密表单提交
+        document.getElementById('generateForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const code = document.getElementById('code').value.trim();
-            const resultDiv = document.getElementById('singleResult');
-            const submitBtn = document.getElementById('submitBtn');
+            const prizeContents = document.querySelector('textarea[name="prize_contents"]').value.trim();
+            const maxUses = parseInt(document.querySelector('input[name="max_uses"]').value);
+            const expireTime = document.querySelector('input[name="expire_time"]').value;
+            const description = document.querySelector('input[name="description"]').value;
             
-            if (!code) {
-                showResult('请输入卡密代码！', 'error', resultDiv);
+            if (!prizeContents) {
+                alert('请输入中奖内容！');
+                return;
+            }
+            
+            const prizeLines = prizeContents.split('\n').filter(line => line.trim() !== '');
+            const count = prizeLines.length;
+            
+            if (count === 0) {
+                alert('请至少输入一行中奖内容！');
+                return;
+            }
+            
+            if (maxUses < 1) {
+                alert('最大使用次数必须大于0');
+                return;
+            }
+            
+            if (!expireTime) {
+                alert('请设置过期时间');
                 return;
             }
 
-            // 显示加载状态
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 验证中...';
-            
-            try {
-                const response = await fetch('redeem.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `code=${encodeURIComponent(code)}`
-                });
+            const requestData = new FormData();
+            requestData.append('action', 'generate');
+            requestData.append('count', count);
+            requestData.append('max_uses', maxUses);
+            requestData.append('expire_time', expireTime);
+            requestData.append('prize_contents', prizeContents);
+            requestData.append('description', description);
 
-                const data = await response.json();
-                
+            fetch('admin_handler.php', {
+                method: 'POST',
+                body: requestData
+            })
+            .then(response => response.json())
+            .then(data => {
                 if (data.success) {
-                    showResult('兑换成功！', 'success', resultDiv, data.message);
-                    document.getElementById('code').value = '';
+                    alert(`成功生成 ${count} 个卡密！`);
+                    this.reset();
+                    // 重置过期时间为1个月后
+                    const now = new Date();
+                    now.setMonth(now.getMonth() + 1);
+                    document.querySelector('input[name="expire_time"]').value = now.toISOString().slice(0, 16);
+                    // 重新加载卡密列表和统计
+                    loadCodeList();
+                    loadStats();
                 } else {
-                    showResult('兑换失败', 'error', resultDiv, data.message);
+                    alert('生成失败: ' + data.message);
                 }
-            } catch (error) {
-                showResult('网络错误，请稍后重试', 'error', resultDiv, '无法连接到服务器');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-exchange-alt"></i> 兑换卡密';
-            }
+            })
+            .catch(error => {
+                alert('网络错误: ' + error);
+            });
         });
 
-        // 批量兑换表单提交
-        document.getElementById('batchRedeemForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const codesText = document.querySelector('#batchRedeemForm textarea[name="codes"]').value.trim();
-            const resultDiv = document.getElementById('batchResult');
-            const submitBtn = document.getElementById('batchSubmitBtn');
-            
-            if (!codesText) {
-                resultDiv.innerHTML = '<p style="color: var(--error);">请输入卡密代码！</p>';
-                return;
-            }
-
-            const codes = codesText.split('\n').filter(code => code.trim() !== '');
-            
-            if (codes.length === 0) {
-                resultDiv.innerHTML = '<p style="color: var(--error);">请至少输入一个卡密代码！</p>';
-                return;
-            }
-
-            // 显示加载状态
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 批量兑换中...';
-            resultDiv.innerHTML = '<p style="color: rgba(255,255,255,0.6);">正在兑换中，请稍候...</p>';
-            
-            try {
-                const results = [];
-                let successCount = 0;
-                let errorCount = 0;
+        // 加载卡密列表
+        function loadCodeList() {
+            fetch('admin_handler.php?action=list')
+            .then(response => response.json())
+            .then(data => {
+                const codeList = document.getElementById('codeList');
                 
-                for (const code of codes) {
-                    try {
-                        const response = await fetch('redeem.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `code=${encodeURIComponent(code.trim())}`
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (data.success) {
-                            successCount++;
-                            results.push({
-                                code: code,
-                                success: true,
-                                message: data.message
-                            });
-                        } else {
-                            errorCount++;
-                            results.push({
-                                code: code,
-                                success: false,
-                                message: data.message
-                            });
-                        }
-                    } catch (error) {
-                        errorCount++;
-                        results.push({
-                            code: code,
-                            success: false,
-                            message: '网络错误'
-                        });
-                    }
+                if (!data.codes || data.codes.length === 0) {
+                    codeList.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.6);">暂无卡密数据</p>';
+                    return;
                 }
-                
-                // 保存结果到全局变量以便导出
-                window.batchRedeemResults = results;
-                
-                // 显示结果（简化版，只显示统计信息）
+
                 let html = '';
-                html += `<p>兑换完成：成功 ${successCount} 个，失败 ${errorCount} 个</p>`;
+                data.codes.forEach((item, index) => {
+                    const statusClass = item.is_active ? 
+                        (new Date(item.expire_time) < new Date() ? 'status-expired' : 'status-active') : 
+                        'status-disabled';
+                    const statusText = item.is_active ? 
+                        (new Date(item.expire_time) < new Date() ? '已过期' : '正常') : 
+                        '已禁用';
+
+                    html += `
+                        <div class="code-item">
+                            <div class="code-header">
+                                <div class="code-value">${item.code}</div>
+                                <div>
+                                    <span class="status-${statusClass}">${statusText}</span>
+                                </div>
+                            </div>
+                            <div class="code-info">
+                                <div><span>最大使用:</span> <span>${item.max_uses}</span></div>
+                                <div><span>已使用:</span> <span>${item.current_uses}</span></div>
+                                <div><span>剩余次数:</span> <span>${item.max_uses - item.current_uses}</span></div>
+                                <div><span>创建时间:</span> <span>${item.created_at}</span></div>
+                                <div><span>过期时间:</span> <span>${item.expire_time}</span></div>
+                                <div><span>中奖内容:</span> <span>${item.prize_content}</span></div>
+                                <div><span>描述:</span> <span>${item.description}</span></div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="editCode('${item.code}')">
+                                    <i class="fas fa-edit"></i> 编辑
+                                </button>
+                                <button class="btn btn-danger" onclick="toggleCode('${item.code}')">
+                                    <i class="fas fa-power-off"></i> ${item.is_active ? '禁用' : '启用'}
+                                </button>
+                                <button class="btn btn-warning" onclick="deleteCode('${item.code}')">
+                                    <i class="fas fa-trash"></i> 删除
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                codeList.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading code list:', error);
+            });
+        }
+
+        // 加载统计信息
+        function loadStats() {
+            fetch('admin_handler.php?action=stats')
+            .then(response => response.json())
+            .then(data => {
+                const statsGrid = document.getElementById('statsGrid');
                 
-                // 只显示失败的卡密
-                const failedCodes = results.filter(r => !r.success);
-                if (failedCodes.length > 0) {
-                    html += `<p>失败的卡密：</p>`;
-                    failedCodes.forEach(result => {
-                        html += `<p>${result.code} - ${result.message}</p>`;
-                    });
+                if (!data.stats) {
+                    statsGrid.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.6);">暂无统计数据</p>';
+                    return;
+                }
+
+                const totalCodes = data.stats.total_codes;
+                const activeCodes = data.stats.active_codes;
+                const expiredCodes = data.stats.expired_codes;
+                const disabledCodes = data.stats.disabled_codes;
+                const usedCodes = data.stats.used_codes;
+                const unusedCodes = data.stats.unused_codes;
+
+                statsGrid.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${totalCodes}</div>
+                        <div class="stat-label">总卡密数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${activeCodes}</div>
+                        <div class="stat-label">有效卡密</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${expiredCodes}</div>
+                        <div class="stat-label">已过期</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${disabledCodes}</div>
+                        <div class="stat-label">已禁用</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${usedCodes}</div>
+                        <div class="stat-label">已使用</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${unusedCodes}</div>
+                        <div class="stat-label">未使用</div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error loading stats:', error);
+            });
+        }
+
+        // 编辑卡密
+        function editCode(code) {
+            const newContent = prompt('请输入新的中奖内容：');
+            if (newContent !== null) {
+                const formData = new FormData();
+                formData.append('action', 'edit');
+                formData.append('code', code);
+                formData.append('prize_content', newContent);
+
+                fetch('admin_handler.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('修改成功！');
+                        loadCodeList();
+                    } else {
+                        alert('修改失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('网络错误: ' + error);
+                });
+            }
+        }
+
+        // 切换卡密状态（启用/禁用）
+        function toggleCode(code) {
+            if (confirm('确定要切换此卡密的状态吗？')) {
+                const formData = new FormData();
+                formData.append('action', 'toggle');
+                formData.append('code', code);
+
+                fetch('admin_handler.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('状态已更新！');
+                        loadCodeList();
+                        loadStats();
+                    } else {
+                        alert('操作失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('网络错误: ' + error);
+                });
+            }
+        }
+
+        // 删除卡密
+        function deleteCode(code) {
+            if (confirm('确定要删除此卡密吗？此操作不可撤销！')) {
+                const formData = new FormData();
+                formData.append('action', 'delete');
+                formData.append('code', code);
+
+                fetch('admin_handler.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('删除成功！');
+                        loadCodeList();
+                        loadStats();
+                    } else {
+                        alert('删除失败: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('网络错误: ' + error);
+                });
+            }
+        }
+
+        // 导出卡密（纯文本）
+        function exportCodes() {
+            fetch('admin_handler.php?action=list')
+            .then(response => response.json())
+            .then(data => {
+                if (!data.codes || data.codes.length === 0) {
+                    alert('没有可导出的卡密数据');
+                    return;
                 }
                 
-                resultDiv.innerHTML = html;
+                // 提取所有卡密代码
+                const codes = data.codes.map(item => item.code).join('\n');
                 
-            } catch (error) {
-                resultDiv.innerHTML = '<p style="color: var(--error);">批量兑换过程中发生错误</p>';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-exchange-alt"></i> 批量兑换';
-            }
-        });
-
-        // 导出批量兑换结果
-        function exportBatchResults() {
-            if (!window.batchRedeemResults || window.batchRedeemResults.length === 0) {
-                alert('没有可导出的兑换结果');
-                return;
-            }
-            
-            // 只导出失败的结果
-            const failedResults = window.batchRedeemResults.filter(r => !r.success);
-            let output = '';
-            
-            if (failedResults.length > 0) {
-                output = `失败的卡密列表\n\n`;
-                failedResults.forEach(result => {
-                    output += `${result.code} - ${result.message}\n`;
-                });
-            } else {
-                output = `所有卡密兑换成功！\n`;
-            }
-            
-            const blob = new Blob([output], { type: 'text/plain;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = '兑换结果_' + new Date().toISOString().slice(0, 10) + '.txt';
-            a.click();
-            URL.revokeObjectURL(url);
+                const blob = new Blob([codes], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'codes_' + new Date().toISOString().slice(0, 10) + '.txt';
+                a.click();
+                URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                alert('导出失败: ' + error);
+            });
         }
 
-        function showResult(title, type, resultDiv, message) {
-            resultDiv.className = `result ${type}`;
-            resultDiv.innerHTML = `
-                <h3><i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i> ${title}</h3>
-                <p>${message}</p>
-            `;
-            resultDiv.style.display = 'block';
-            
-            // 滚动到结果区域
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        // 初始化
+        // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            
+            // 设置默认过期时间为1个月后
+            const now = new Date();
+            now.setMonth(now.getMonth() + 1);
+            document.querySelector('input[name="expire_time"]').value = now.toISOString().slice(0, 16);
         });
     </script>
 </body>
